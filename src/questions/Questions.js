@@ -4,6 +4,7 @@ import Question from "./components/Question";
 import Answer from "./components/Answer";
 import Submit from "./components/Submit";
 import GameEnd from "./components/GameEnd";
+import Timer from "./components/Timer";
 
 import instance from "../axios";
 
@@ -12,6 +13,7 @@ function Questions(props) {
   const [nextQuestion, setNextQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+  const [countTime,setCountTime] = useState(8);
 
   const { handleRestart } = props;
 
@@ -29,10 +31,28 @@ function Questions(props) {
     getData();
   }, []);
 
+  useEffect(() => {
+    const myInterval = setInterval(() => {
+      setCountTime(countTime - 1)
+      if(countTime === 0) {
+        setNextQuestion( nextQuestion + 1)
+        setCountTime(8)
+        setIsClicked(false);
+        if (!changeStyle[0]) {
+          return null;
+        }
+        changeStyle[0].style.backgroundColor = "#fff";
+      }
+  },1000)
+  return () => {
+    clearTimeout(myInterval)
+  }  })
+
   const changeStyle = document.getElementsByClassName("answer-list");
 
   const handleNextQuestion = () => {
     setNextQuestion(nextQuestion + 1);
+    setCountTime(8)
     setIsClicked(false);
     changeStyle[0].style.backgroundColor = "#fff";
   };
@@ -55,6 +75,7 @@ function Questions(props) {
     <div className="questions">
       {nextQuestion + 1 <= data.length ? (
         <React.Fragment>
+          <Timer countTime={countTime}/>
           <Question data={data} nextQuestion={nextQuestion} />
           <Answer
             data={data}

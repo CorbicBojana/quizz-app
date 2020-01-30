@@ -157,3 +157,20 @@ body {
   color: #0094da;
   font-weight: 700;
 }
+
+.timer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-bottom: 4px solid #0094da;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.timer-count {
+  color: #0094da;
+}
+
+

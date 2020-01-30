@@ -14,7 +14,7 @@ function GameEnd(props) {
           You got:{" "}
           <span
             className="popup-score"
-            style={score > score / 2 ? { color: "red" } : { color: "green" }}
+            style={score >= score / 2 ? { color: "#FF0000" } : { color: "#008000" }}
           >
             {score}
           </span>
